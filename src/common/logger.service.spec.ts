@@ -7,7 +7,6 @@ describe('LoggerService', () => {
   let mockLogger: jest.Mocked<winston.Logger>;
 
   beforeEach(async () => {
-    // Create a mock logger
     mockLogger = {
       info: jest.fn(),
       error: jest.fn(),
@@ -16,7 +15,6 @@ describe('LoggerService', () => {
       verbose: jest.fn(),
     } as any;
 
-    // Mock the winston.createLogger function
     jest.spyOn(winston, 'createLogger').mockReturnValue(mockLogger);
 
     const module: TestingModule = await Test.createTestingModule({

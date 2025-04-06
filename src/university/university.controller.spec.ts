@@ -4,12 +4,10 @@ import { UniversityService } from './university.service';
 describe('UniversityController', () => {
   let controller: UniversityController;
 
-  // Create a properly typed mock service
   const mockUniversityService = {
     runEtl: jest.fn().mockImplementation(() => Promise.resolve()),
   } as unknown as UniversityService;
 
-  // Manual setup instead of using TestingModule
   beforeEach(() => {
     controller = new UniversityController(mockUniversityService);
   });
