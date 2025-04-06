@@ -7,6 +7,7 @@ University ETL Service is a microservice designed to fetch, transform, and serve
 ## Service Workflow Overview
 
 The service follows a straightforward ETL workflow:
+![Service Workflow](/assets/flowchart.png)
 
 1. **Extract**: Fetches university data from the external API (universities.hipolabs.com)
 2. **Transform**: Processes the data by:
@@ -41,13 +42,19 @@ git clone <repository-url>
 cd university-etl
 ```
 
-
 2. Start the application using Docker Compose:
 ```sh
 docker-compose up --build
 ```
 
 The application will be available at `http://localhost:3000`.
+
+## Testing
+
+Run the test suite:
+```sh
+npm test
+```
 
 ## API Endpoints
 
@@ -74,23 +81,23 @@ Returns a CSV file containing university data with the following columns:
 ```
 university-etl/
 ├── src/
-│   ├── main.ts                 # Application entry point
-│   ├── app.module.ts           # Root module configuration
-│   ├── university/             # University domain module
-│   │   ├── university.controller.ts  # HTTP request handling
-│   │   ├── university.service.ts     # Business logic and ETL operations
-│   │   └── university.types.ts       # Type definitions
-│   ├── config/                 # Configuration management
-│   │   └── configuration.ts    # Environment configuration
-│   └── common/                 # Shared utilities
-│       ├── logger.service.ts   # Centralized logging
-│       └── retry.decorator.ts  # Retry mechanism for API calls
-├── data/                       # Data storage directory
-│   └── universities.json       # Transformed university data
-├── Dockerfile                  # Container definition
-├── docker-compose.yml          # Multi-container setup
-├── tsconfig.json               # TypeScript configuration
-└── package.json                # Project dependencies
+│   ├── main.ts                        # Application entry point
+│   ├── app.module.ts                  # Root module configuration
+│   ├── university/                    # University domain module
+│   │   ├── university.controller.ts   # HTTP request handling
+│   │   ├── university.service.ts      # Business logic and ETL operations
+│   │   └── university.types.ts        # Type definitions
+│   ├── config/                        # Configuration management
+│   │   └── configuration.ts           # Environment configuration
+│   └── common/                        # Shared utilities
+│       ├── logger.service.ts          # Centralized logging
+│       └── retry.decorator.ts         # Retry mechanism for API calls
+├── data/                              # Data storage directory
+│   └── universities.json              # Transformed university data
+├── Dockerfile                         # Container definition
+├── docker-compose.yml                 # Multi-container setup
+├── tsconfig.json                      # TypeScript configuration
+└── package.json                       # Project dependencies
 ```
 
 ## Design Decisions
@@ -174,10 +181,3 @@ This design would provide:
 - Efficient querying capabilities
 - Support for historical tracking
 - Flexibility for future expansions
-
-## Testing
-
-Run the test suite:
-```sh
-npm test
-```
