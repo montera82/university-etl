@@ -9,8 +9,6 @@ build/
 *.tsbuildinfo
 
 # Environment variables
-.env
-.env.*
 !.env.example
 
 # IDE and editor files
