@@ -91,3 +91,4 @@ temp/
 .cache/
 
 data/universities.json
+.cursor/rules/my-rule.mdc
