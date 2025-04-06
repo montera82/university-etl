@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common';
 import { Retry } from './retry.decorator';
 
 const mockWarn = jest.fn();
@@ -26,8 +25,8 @@ describe('Retry Decorator', () => {
   it('should succeed on first attempt when no error occurs', async () => {
     const testInstance = new TestClass();
     const result = await testInstance.successfulMethod();
-    
+
     expect(result).toBe('success');
     expect(mockWarn).not.toHaveBeenCalled();
   });
-}); 
+});

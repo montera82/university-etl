@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UniversityModule } from './university/university.module';
 import { LoggerService } from './common/logger.service';
@@ -14,4 +14,4 @@ import { LoggerService } from './common/logger.service';
   ],
   providers: [LoggerService],
 })
-export class AppModule {} 
+export class AppModule {}

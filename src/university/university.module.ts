@@ -9,4 +9,4 @@ import { LoggerService } from '../common/logger.service';
   controllers: [UniversityController],
   providers: [UniversityService, LoggerService],
 })
-export class UniversityModule {} 
+export class UniversityModule {}

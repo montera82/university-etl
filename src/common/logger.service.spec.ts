@@ -65,7 +65,10 @@ describe('LoggerService', () => {
 
       service.error(message);
 
-      expect(mockLogger.error).toHaveBeenCalledWith(message, { trace: undefined, context: undefined });
+      expect(mockLogger.error).toHaveBeenCalledWith(message, {
+        trace: undefined,
+        context: undefined,
+      });
     });
   });
 
@@ -125,4 +128,4 @@ describe('LoggerService', () => {
       expect(mockLogger.verbose).toHaveBeenCalledWith(message, { context: undefined });
     });
   });
-}); 
+});

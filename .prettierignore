@@ -1,0 +1,8 @@
+dist
+node_modules
+coverage
+.git
+*.md
+*.json
+!package.json
+!tsconfig.json 

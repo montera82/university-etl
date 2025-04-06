@@ -24,13 +24,11 @@ export class UniversityService {
   async fetchUniversitiesPage(offset: number, limit: number): Promise<UniversityRawData[]> {
     const country = this.configService.get<string>('DEFAULT_COUNTRY', this.defaultCountry);
     const apiUrl = `${this.defaultApiUrl}?offset=${offset}&limit=${limit}&country=${country}`;
-    
+
     this.logger.log(`Fetching universities page: offset=${offset}, limit=${limit}`);
-    
-    const { data } = await firstValueFrom(
-      this.httpService.get<UniversityRawData[]>(apiUrl),
-    );
-    
+
+    const { data } = await firstValueFrom(this.httpService.get<UniversityRawData[]>(apiUrl));
+
     this.logger.log(`Fetched ${data.length} universities for page offset=${offset}`);
     return data;
   }
@@ -40,12 +38,12 @@ export class UniversityService {
     let offset = 0;
     let allUniversities: UniversityRawData[] = [];
     let hasMoreData = true;
-    
+
     this.logger.log(`Starting incremental fetch with limit=${limit}`);
-    
+
     while (hasMoreData) {
       const pageData = await this.fetchUniversitiesPage(offset, limit);
-      
+
       if (pageData.length === 0) {
         hasMoreData = false;
         this.logger.log(`No more data found at offset=${offset}`);
@@ -55,7 +53,7 @@ export class UniversityService {
         this.logger.log(`Total universities fetched so far: ${allUniversities.length}`);
       }
     }
-    
+
     this.logger.log(`Completed fetching all universities. Total: ${allUniversities.length}`);
     return allUniversities;
   }
@@ -63,7 +61,7 @@ export class UniversityService {
   transformUniversities(rawData: UniversityRawData[]): University[] {
     const universitiesMap = new Map<string, University>();
 
-    rawData.forEach((raw) => {
+    rawData.forEach(raw => {
       const key = `${raw.name}:${raw.alpha_two_code}`;
       if (!universitiesMap.has(key)) {
         universitiesMap.set(key, {
@@ -81,7 +79,7 @@ export class UniversityService {
   }
 
   async loadUniversities(transformedData: University[]): Promise<void> {
-    const filePath = this.configService.get<string>('DATA_FILE_PATH', this.dataFilePath );
+    const filePath = this.configService.get<string>('DATA_FILE_PATH', this.dataFilePath);
     this.logger.log(`Loading universities to ${filePath}`);
 
     let existingData: University[] = [];
@@ -93,15 +91,15 @@ export class UniversityService {
     }
 
     const universitiesMap = new Map<string, University>();
-    
-    [...existingData, ...transformedData].forEach((uni) => {
+
+    [...existingData, ...transformedData].forEach(uni => {
       const key = `${uni.name}:${uni.alphaTwoCode}`;
       universitiesMap.set(key, uni);
     });
 
     const mergedData = Array.from(universitiesMap.values());
     await fs.writeFile(filePath, JSON.stringify(mergedData, null, 2));
-    
+
     this.logger.log(`Successfully loaded ${mergedData.length} universities`);
   }
 
@@ -121,12 +119,12 @@ export class UniversityService {
     try {
       const fileContent = await fs.readFile(filePath, 'utf-8');
       const allUniversities = JSON.parse(fileContent);
-      
+
       // Apply pagination if limit is provided
       if (limit !== undefined) {
         return allUniversities.slice(offset, offset + limit);
       }
-      
+
       // If no limit provided, return all universities from offset
       return allUniversities.slice(offset);
     } catch (error) {
@@ -134,4 +132,4 @@ export class UniversityService {
       return [];
     }
   }
-} 
+}

@@ -8,16 +8,10 @@ export class LoggerService implements NestLoggerService {
   constructor() {
     this.logger = winston.createLogger({
       level: 'info',
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json(),
-      ),
+      format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
       transports: [
         new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.colorize(),
-            winston.format.simple(),
-          ),
+          format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
         }),
       ],
     });
@@ -42,4 +36,4 @@ export class LoggerService implements NestLoggerService {
   verbose(message: string, context?: string) {
     this.logger.verbose(message, { context });
   }
-} 
+}

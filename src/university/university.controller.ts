@@ -15,32 +15,22 @@ export class UniversityController {
   async downloadUniversities(
     @Res() res: FastifyReply,
     @Query('offset') offset?: string,
-    @Query('limit') limit?: string
+    @Query('limit') limit?: string,
   ) {
     const parsedOffset = offset ? parseInt(offset, 10) : 0;
     const parsedLimit = limit ? parseInt(limit, 10) : undefined;
-    
+
     this.logger.log(`Downloading universities with offset=${parsedOffset}, limit=${parsedLimit}`);
-    
+
     const universities = await this.universityService.getUniversities(parsedOffset, parsedLimit);
-    
+
     res.header('Content-Type', 'text/csv');
-    res.header(
-      'Content-Disposition',
-      'attachment; filename="universities.csv"',
-    );
+    res.header('Content-Disposition', 'attachment; filename="universities.csv"');
 
     const csvStream = csv.format({ headers: true });
     csvStream.pipe(res.raw);
 
-    const headers = [
-      'name',
-      'country',
-      'alphaTwoCode',
-      'domains',
-      'webPages',
-      'stateProvince',
-    ];
+    const headers = ['name', 'country', 'alphaTwoCode', 'domains', 'webPages', 'stateProvince'];
     csvStream.write(headers);
 
     universities.forEach((uni: University) => {
@@ -62,4 +52,4 @@ export class UniversityController {
     this.logger.log('Running scheduled ETL process');
     await this.universityService.runEtl();
   }
-} 
+}

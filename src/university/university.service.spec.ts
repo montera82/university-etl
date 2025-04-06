@@ -79,8 +79,9 @@ describe('UniversityService', () => {
       // Arrange
       const offset = 0;
       const limit = 10;
-      const expectedUrl = 'http://universities.hipolabs.com/search?offset=0&limit=10&country=United+States';
-      
+      const expectedUrl =
+        'http://universities.hipolabs.com/search?offset=0&limit=10&country=United+States';
+
       mockConfigService.get.mockReturnValue('United+States');
       mockHttpService.get.mockReturnValue(of({ data: mockUniversityRawData }));
 
@@ -98,8 +99,9 @@ describe('UniversityService', () => {
       const offset = 0;
       const limit = 10;
       const customCountry = 'Canada';
-      const expectedUrl = 'http://universities.hipolabs.com/search?offset=0&limit=10&country=Canada';
-      
+      const expectedUrl =
+        'http://universities.hipolabs.com/search?offset=0&limit=10&country=Canada';
+
       mockConfigService.get.mockReturnValue(customCountry);
       mockHttpService.get.mockReturnValue(of({ data: mockUniversityRawData }));
 
@@ -123,8 +125,9 @@ describe('UniversityService', () => {
       // Arrange
       const defaultLimit = 500;
       mockConfigService.get.mockReturnValue(defaultLimit);
-      mockHttpService.get.mockReturnValueOnce(of({ data: mockUniversityRawData }))
-                       .mockReturnValueOnce(of({ data: [] }));
+      mockHttpService.get
+        .mockReturnValueOnce(of({ data: mockUniversityRawData }))
+        .mockReturnValueOnce(of({ data: [] }));
 
       // Act
       const result = await service.fetchAllUniversities();
@@ -138,8 +141,9 @@ describe('UniversityService', () => {
       // Arrange
       const customLimit = 100;
       mockConfigService.get.mockReturnValue(customLimit);
-      mockHttpService.get.mockReturnValueOnce(of({ data: mockUniversityRawData }))
-                       .mockReturnValueOnce(of({ data: [] }));
+      mockHttpService.get
+        .mockReturnValueOnce(of({ data: mockUniversityRawData }))
+        .mockReturnValueOnce(of({ data: [] }));
 
       // Act
       const result = await service.fetchAllUniversities();
@@ -187,9 +191,8 @@ describe('UniversityService', () => {
 
       const result = service.transformUniversities(duplicateData);
 
-      expect(result.length).toBe(1); 
+      expect(result.length).toBe(1);
       expect(result).toEqual(mockTransformedUniversities);
     });
   });
-
-}); 
+});

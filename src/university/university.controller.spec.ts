@@ -1,7 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { UniversityController } from './university.controller';
 import { UniversityService } from './university.service';
-import { Logger } from '@nestjs/common';
 
 describe('UniversityController', () => {
   let controller: UniversityController;
@@ -32,4 +30,4 @@ describe('UniversityController', () => {
       await expect(controller.handleCron()).rejects.toThrow('ETL failed');
     });
   });
-}); 
+});

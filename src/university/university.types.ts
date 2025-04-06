@@ -14,4 +14,4 @@ export interface University {
   domains: string[];
   webPages: string[];
   stateProvince: string | null;
-} 
+}
