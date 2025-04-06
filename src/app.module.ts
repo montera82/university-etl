@@ -8,6 +8,7 @@ import { LoggerService } from './common/logger.service';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env.dev',
     }),
     ScheduleModule.forRoot(),
     UniversityModule,
