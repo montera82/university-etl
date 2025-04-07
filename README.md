@@ -101,7 +101,7 @@ university-etl/
 - **Fastify Over Express**: Chosen for its superior performance benchmarks and faster response times.
 - **Retry Logic**: Implemented to handle transient network failures when fetching data from the external API.
 - **Scheduled ETL**: Daily refresh ensures data remains current without manual intervention.
-- **Deduplication**: Ensures data integrity by preventing duplicate university entries.
+- **Deduplication**: Ensures data integrity by preventing duplicate university entries in the json file.
 - **Versioning**: API versioning is implemented to accommodate future changes. The version is included in the URL (e.g., GET /v1/universities/download) for clarity and easy identification of the API version in use.
 
 ## Expansion
