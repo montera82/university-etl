@@ -56,6 +56,13 @@ npm test
 
 ## API Endpoints
 
+### Swagger Documentation
+
+```
+GET /
+```
+The root endpoint serves the Swagger documentation for the API, providing interactive documentation and testing capabilities.
+
 ### Download Universities Data
 
 ```

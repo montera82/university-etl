@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoggerService } from './common/logger.service';
 import { UniversityService } from './university/university.service';
 import { VersioningType } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function runEtlProcess(
   logger: LoggerService,
@@ -26,6 +27,16 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1',
   });
+
+  // Configure Swagger
+  const config = new DocumentBuilder()
+    .setTitle('University ETL API')
+    .setDescription('API for downloading university data')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/', app, document);
 
   const configService = app.get(ConfigService);
   const logger = app.get(LoggerService);

@@ -4,13 +4,40 @@ import { Cron } from '@nestjs/schedule';
 import { UniversityService } from './university.service';
 import * as csv from 'fast-csv';
 import { University } from './university.types';
+import { ApiOperation, ApiQuery, ApiTags, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('Universities')
 @Controller({ path: 'universities', version: '1' })
 export class UniversityController {
   private readonly logger = new Logger(UniversityController.name);
 
   constructor(private readonly universityService: UniversityService) {}
 
+  @ApiOperation({ summary: 'Download universities data as CSV' })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    description: 'Number of records to skip',
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Maximum number of records to return',
+    type: Number,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'CSV file containing university data',
+    content: {
+      'text/csv': {
+        schema: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Get('download')
   async downloadUniversities(
     @Res() res: FastifyReply,
